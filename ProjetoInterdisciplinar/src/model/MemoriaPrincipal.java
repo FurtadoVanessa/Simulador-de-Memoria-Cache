@@ -1,14 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
-/**
- *
- * @author thoma
- */
 public class MemoriaPrincipal {
     
+    private String linha;
+    private String dado;
+    
+    public MemoriaPrincipal(){}
+
+    public MemoriaPrincipal(String linha, String dado){
+        this.dado = dado;
+        this.linha = linha;
+    
+    }
+    
+    public String getLinha() {
+        return linha;
+    }
+
+    public void setLinha(String linha) {
+        this.linha = linha;
+    }
+
+    public String getDado() {
+        return dado;
+    }
+
+    public void setDado(String dado) {
+        this.dado = dado;
+    }
+   
 }
