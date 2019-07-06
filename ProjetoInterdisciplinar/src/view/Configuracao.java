@@ -5,7 +5,10 @@
  */
 package view;
 
+import java.io.File;
+import java.nio.file.Path;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
@@ -123,14 +126,12 @@ public class Configuracao extends javax.swing.JFrame {
                                     .addGroup(painelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(campoFileCache, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
                                         .addComponent(campoFileInstrucoes))
-                                    .addGap(10, 10, 10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(painelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(botaoBuscarCache, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(botaoBuscarInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painelConfiguracaoLayout.createSequentialGroup()
-                        .addComponent(tituloConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75))))
+                                        .addComponent(botaoBuscarInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(tituloConfiguracao, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         painelConfiguracaoLayout.setVerticalGroup(
             painelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +150,9 @@ public class Configuracao extends javax.swing.JFrame {
                     .addComponent(botaoBuscarCache, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(painelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoBuscarInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoFileInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textoInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoBuscarInstrucoes, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(painelConfiguracaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoConfigurar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -175,14 +176,25 @@ public class Configuracao extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    private boolean verificaConfig(String memoria, String cache, String instrucao){
+        boolean hit;
+        hit = memoria.isEmpty()||cache.isEmpty()||instrucao.isEmpty();
+        return !hit;
+        
+    }
     private void botaoBuscarInstrucoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarInstrucoesActionPerformed
         JFileChooser buscarArquivo = new JFileChooser();
         buscarArquivo.setDialogTitle("Buscar Arquivo - Instruções");
         buscarArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de texto", "txt");
         buscarArquivo.setFileFilter(filtro);
-        buscarArquivo.showOpenDialog(this);
+        int op = buscarArquivo.showOpenDialog(this);
+        
+        if (op == JFileChooser.APPROVE_OPTION){
+            File arq = buscarArquivo.getSelectedFile(); 
+            campoFileInstrucoes.setText(arq.getAbsolutePath());
+        }                                              
+        
     }//GEN-LAST:event_botaoBuscarInstrucoesActionPerformed
 
     private void botaoBuscarMemoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarMemoriaActionPerformed
@@ -191,15 +203,36 @@ public class Configuracao extends javax.swing.JFrame {
         buscarArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de texto", "txt");
         buscarArquivo.setFileFilter(filtro);
-        buscarArquivo.showOpenDialog(this);
+        int op = buscarArquivo.showOpenDialog(this);
+        
+        if (op == JFileChooser.APPROVE_OPTION){
+            File arq = buscarArquivo.getSelectedFile();
+            campoFileMemoria.setText(arq.getAbsolutePath());    
+        }
     }//GEN-LAST:event_botaoBuscarMemoriaActionPerformed
 
     private void botaoConfigurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoConfigurarActionPerformed
-        // TODO add your handling code here:
+        String caminhoMemoria = campoFileMemoria.getText();
+        String caminhoInstrucoes = campoFileInstrucoes.getText();
+        String caminhoCache = campoFileCache.getText();
+        /* aqui entra o link para controller.
+            as strings caminhoCache, caminhoMemoria e caminhoInstrucoes são
+        strings que contem os caminhos absolutos dos aquivos de configuracao
+        */
+        if(verificaConfig(caminhoMemoria, caminhoCache, caminhoInstrucoes)){
+            Programa programa = new Programa();
+            programa.setVisible(true);
+            this.dispose();
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Os caminhos de configuração do programa não foram preenchidos corretamente!", "Erro!",JOptionPane.ERROR_MESSAGE);
+        }   
     }//GEN-LAST:event_botaoConfigurarActionPerformed
 
     private void botaoLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoLimparActionPerformed
-        // TODO add your handling code here:
+        campoFileCache.setText(null);
+        campoFileInstrucoes.setText(null);
+        campoFileMemoria.setText(null);
     }//GEN-LAST:event_botaoLimparActionPerformed
 
     private void botaoBuscarCacheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarCacheActionPerformed
@@ -208,7 +241,12 @@ public class Configuracao extends javax.swing.JFrame {
         buscarArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de texto", "txt");
         buscarArquivo.setFileFilter(filtro);
-        buscarArquivo.showOpenDialog(this);
+        int op = buscarArquivo.showOpenDialog(this);
+        
+        if (op == JFileChooser.APPROVE_OPTION){
+            File arq = buscarArquivo.getSelectedFile(); 
+            campoFileCache.setText(arq.getAbsolutePath());
+        }  
     }//GEN-LAST:event_botaoBuscarCacheActionPerformed
 
     /**
