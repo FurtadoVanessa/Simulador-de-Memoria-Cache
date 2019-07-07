@@ -35,7 +35,7 @@ public class MapeamentoDireto {
     
     
     public void mapeamento(){
-        int hit=0, miss =0;
+        double hit=0, miss =0;
         for(Instrucao i : this.cpu){
             
             if(i.getOperacao().compareToIgnoreCase("S")==0){
@@ -63,7 +63,7 @@ public class MapeamentoDireto {
                 }
             }
         }
-        double acerto = hit/(hit+miss)*100;
+        double acerto = (hit/(hit+miss))*100.0;
         System.out.println("HIT: "+String.valueOf(hit));
         System.out.println("MISS: "+String.valueOf(miss));
         System.out.println("PERCENTUAL DE ACERTO: "+String.valueOf(acerto));
