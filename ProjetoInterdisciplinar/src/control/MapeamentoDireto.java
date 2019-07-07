@@ -13,10 +13,11 @@ import model.*;
 
 public class MapeamentoDireto {
     
-    GerenciamentoCache cache;
-    GerenciamentoPrincipal principal;
-    List<Instrucao> cpu;
+    private GerenciamentoCache cache;
+    private GerenciamentoPrincipal principal;
+    private List<Instrucao> cpu;
     private String dado = "11111111111111111111111111111111";
+    private double hit, miss, acerto=0;
     
     
     public MapeamentoDireto(){
@@ -35,7 +36,6 @@ public class MapeamentoDireto {
     
     
     public void mapeamento(){
-        double hit=0, miss =0;
         for(Instrucao i : this.cpu){
             
             if(i.getOperacao().compareToIgnoreCase("S")==0){
@@ -128,5 +128,17 @@ public class MapeamentoDireto {
                 Logger.getLogger(MapeamentoDireto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    
+    public List<Instrucao> getCpu(){
+        return this.cpu;
+    }
+    
+    public GerenciamentoPrincipal getRAM(){
+        return this.principal;
+    }
+    
+    public GerenciamentoCache getCache(){
+        return this.cache;
     }
 }

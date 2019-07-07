@@ -27,11 +27,11 @@ public class Principal {
         direto.addCpu("S", "00000000000000000010");
         direto.addCpu("L", "00000000000000000110");
         
-        direto.principal.imprimePrincipal();
+        direto.getRAM().imprimePrincipal();
         direto.imprimeCpu();
         
         direto.mapeamento();
-        direto.cache.imprimeCache();
+        direto.getCache().imprimeCache();
         
     }
     
