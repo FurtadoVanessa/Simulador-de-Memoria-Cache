@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 package view;
+import control.*;
+import java.util.HashMap;
+import java.util.List;
+import model.Instrucao;
+import model.MemoriaPrincipal;
 
 /**
  *
@@ -16,6 +21,25 @@ public class Programa extends javax.swing.JFrame {
      */
     public Programa() {
         initComponents();
+    }
+
+    public Programa(String caminhoMemoria, String caminhoInstrucoes, String caminhoCache) {
+        String memoria, instrucoes, cache;
+        
+        memoria = caminhoMemoria;
+        instrucoes = caminhoInstrucoes;
+        cache = caminhoCache;
+        
+        MapeamentoDireto m = new MapeamentoDireto();
+        
+        m.addCpu(instrucoes);
+        m.addPrincipal(memoria);
+        List<Instrucao> listInstrucao = m.getCpu();
+        HashMap<String, MemoriaPrincipal> principal = m.getRAM().imprimePrincipal();
+        
+        jTextArea1.setText(listInstrucao.toString());
+        jTextArea3.setText(principal.toString());
+        
     }
 
     /**
@@ -379,10 +403,13 @@ public class Programa extends javax.swing.JFrame {
         jTextArea3.setRows(5);
         jScrollPane7.setViewportView(jTextArea3);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel1.setText("CPU");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel2.setText("CACHE");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 2, 18)); // NOI18N
         jLabel3.setText("RAM");
 
         jButton1.setText("Executar Instrução");
@@ -411,13 +438,13 @@ public class Programa extends javax.swing.JFrame {
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(painelCacheLayout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jLabel1)
-                .addGap(291, 291, 291)
-                .addComponent(jLabel2)
+                .addGap(139, 139, 139)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(265, 265, 265)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addGap(157, 157, 157))
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(155, 155, 155))
             .addGroup(painelCacheLayout.createSequentialGroup()
                 .addGap(402, 402, 402)
                 .addComponent(jButton1)
@@ -467,7 +494,7 @@ public class Programa extends javax.swing.JFrame {
                 .addGroup(painelCacheLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel9))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         tabPrincipal.addTab("Cache", painelCache);
@@ -493,6 +520,8 @@ public class Programa extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

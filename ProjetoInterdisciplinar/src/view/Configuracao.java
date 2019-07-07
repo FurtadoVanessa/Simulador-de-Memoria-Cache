@@ -220,7 +220,7 @@ public class Configuracao extends javax.swing.JFrame {
         strings que contem os caminhos absolutos dos aquivos de configuracao
         */
         if(verificaConfig(caminhoMemoria, caminhoCache, caminhoInstrucoes)){
-            Programa programa = new Programa();
+            Programa programa = new Programa(caminhoMemoria, caminhoInstrucoes, caminhoCache);
             programa.setVisible(true);
             this.dispose();
         }
