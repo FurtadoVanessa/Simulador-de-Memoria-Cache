@@ -66,7 +66,7 @@ public class Configuracao extends javax.swing.JFrame {
         });
 
         textoCache.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textoCache.setText("Configuração Cache");
+        textoCache.setText("Configuração");
 
         botaoBuscarCache.setText("Buscar");
         botaoBuscarCache.addActionListener(new java.awt.event.ActionListener() {
@@ -237,7 +237,7 @@ public class Configuracao extends javax.swing.JFrame {
 
     private void botaoBuscarCacheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoBuscarCacheActionPerformed
         JFileChooser buscarArquivo = new JFileChooser();
-        buscarArquivo.setDialogTitle("Buscar Arquivo - Memória Cache");
+        buscarArquivo.setDialogTitle("Buscar Arquivo - Configurações");
         buscarArquivo.setFileSelectionMode(JFileChooser.FILES_ONLY);
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Arquivos de texto", "txt");
         buscarArquivo.setFileFilter(filtro);

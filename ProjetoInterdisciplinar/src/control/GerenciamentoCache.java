@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import model.*;
@@ -16,6 +17,18 @@ public class GerenciamentoCache {
         this.linhaTamanho = linha;
         this.blocoTamanho = bloco;
         this.cache = new HashMap<>();
+    }
+    
+    public int getTag(){
+        return this.tagTamanho;
+    }
+    
+    public int getLinha(){
+        return this.linhaTamanho;
+    }
+    
+    public int getBloco(){
+        return this.blocoTamanho;
     }
     
     public String procuraCache(String endereco) throws CacheException{
@@ -58,6 +71,14 @@ public class GerenciamentoCache {
         }
         }
         
-    
-    
+        public ArrayList<MemoriaCache> imprimeCacheDesign(){
+            ArrayList<MemoriaCache> cache = new ArrayList<>();
+            for(Map.Entry<String, MemoriaCache> entry : this.cache.entrySet()) {
+                String key = entry.getKey();
+                MemoriaCache value = entry.getValue();
+                System.out.println(value.getTag()+" - "+key+" : "+value.getBloco()+"  ->  "+value.getDado());
+                cache.add(value);
+            }
+            return cache;
+        }
 }

@@ -1,5 +1,6 @@
 package control;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import model.*;
@@ -32,13 +33,27 @@ public class GerenciamentoPrincipal {
         System.out.println("Adicionou na principal na linha "+linha+" o dado "+dado);
     }
     
-    public HashMap<String, MemoriaPrincipal> imprimePrincipal(){
+    public void imprimePrincipal(){
         System.out.println("Memoria Principal:");
         this.principal.entrySet().forEach((entry) -> {
             String key = entry.getKey();
             MemoriaPrincipal value = entry.getValue();
             System.out.println(key+" : "+value.getDado());
-        });
-     return this.principal;   
+        }); 
     }
+
+      public ArrayList<MemoriaPrincipal> imprimePrincipalDesign(){
+        System.out.println("Memoria Principal:");
+        ArrayList<MemoriaPrincipal> principal = new ArrayList<>();
+        this.principal.entrySet().forEach((entry) -> {
+            String key = entry.getKey();
+            MemoriaPrincipal value = entry.getValue();
+            System.out.println(key+" : "+value.getDado());
+            principal.add(value);
+        });
+       return principal;
+    }
+
+
 }
+
